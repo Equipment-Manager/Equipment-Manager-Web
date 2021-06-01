@@ -1,0 +1,13 @@
+# for local development
+version: '3.8'
+services:
+    equipment-manager-client:
+        build:
+            context: .
+            target: 'develop-stage'
+        ports:
+            - '5000:8080'
+        volumes:
+            - '.:/app'
+        command: /bin/sh -c "yarn install && yarn serve"
+        restart: unless-stopped
