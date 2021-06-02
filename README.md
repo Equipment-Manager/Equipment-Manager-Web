@@ -1,4 +1,4 @@
-# Equipment-Manager-Client
+# Equipment-Manager-Web
 
 Create `.env` file based on `.env.example`:
 ```shell script
