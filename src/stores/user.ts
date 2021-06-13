@@ -21,7 +21,7 @@ const actions = {
             state.error = "error fetching user";
         }
         state.user = user;
-
+        state.token = UserRequest.getToken();
         return true;
     },
     async login(email: string, password: string) {

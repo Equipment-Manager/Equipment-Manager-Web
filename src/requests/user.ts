@@ -15,10 +15,18 @@ export async function login(email: string, password: string) {
 }
 
 export async function getUser() {
-    const user = await axios.get("http://localhost:8080/api/user", {
+    const user = await axios.get("http://localhost:8080/api/auth/user", {
         headers: {
-            AccessToken: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + localStorage.getItem("token"),
         },
     });
     return user.data.user;
+}
+
+export function getToken() {
+    const token = localStorage.getItem("token");
+    if (token) {
+        return token;
+    }
+    return "";
 }
