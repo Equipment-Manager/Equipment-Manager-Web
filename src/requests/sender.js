@@ -1,7 +1,8 @@
 import axios from "axios";
+import authHeaders from "./helpers/authHeader";
 
 axios.defaults.baseURL = process.env.VUE_APP_API_URL;
-
+axios.defaults.headers = authHeaders();
 export default {
     async send(config, data = null) {
         try {
@@ -13,22 +14,17 @@ export default {
             });
             return this.__responseWrapper(response);
         } catch (error) {
-            return this.__responseWrapper(error, false);
+            return this.__responseWrapper(error.response, false);
         }
     },
     __responseWrapper(result, status = true) {
         const wrappedResponse = {
+            success: result.data.success,
             status: result.status,
-            message: result.message,
+            message: result.data.message,
         };
-
         if (status) {
             wrappedResponse.data = result.data.data;
-        } else {
-            wrappedResponse.errors = {
-                statusCode: result.status,
-                errors: result.data.errors,
-            };
         }
 
         return wrappedResponse;

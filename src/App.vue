@@ -1,4 +1,5 @@
 <template>
+    <button v-if="userStore.getters.isAuthenticated" @click="logout">Logout</button>
     <div id="app">
         <router-view />
     </div>
@@ -17,7 +18,12 @@ export default {
         onMounted(userStore.getToken);
         onMounted(userStore.getUser);
 
-        return { userStore };
+        const logout = function () {
+            userStore.logout();
+            router.push({ name: "Login" });
+        };
+
+        return { userStore, logout };
     },
 };
 </script>

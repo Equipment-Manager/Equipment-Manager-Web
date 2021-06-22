@@ -7,33 +7,38 @@
             </div>
             <form class="mt-8 space-y-6" @submit.prevent="submit" method="POST">
                 <input type="hidden" name="remember" value="true" />
-                <div class="rounded-md shadow-sm -space-y-px">
+                <div>
                     <div>
                         <label for="email-address" class="sr-only">Email address</label>
                         <input
                             v-model="form.email"
+                            :class="{ 'border-8 border-red-400 rounded-xl hover:border-red-200': form.errors }"
                             id="email-address"
                             name="email"
                             type="email"
                             autocomplete="email"
                             required=""
-                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                            class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="Email address"
                         />
                     </div>
-                    <div>
+                    <div class="mt-2">
                         <label for="password" class="sr-only">Password</label>
                         <input
                             v-model="form.password"
+                            :class="{ 'border-8 border-red-400 rounded-xl hover:border-red-200': form.errors }"
                             id="password"
                             name="password"
                             type="password"
                             autocomplete="current-password"
                             required=""
-                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                            class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="Password"
                         />
                     </div>
+                </div>
+                <div>
+                    <h2 class="text-red-500 text-xs">{{ form.errors }}</h2>
                 </div>
 
                 <div class="flex items-center justify-between">
@@ -69,6 +74,7 @@ export default {
         const userStore = inject("userStore");
         const router = inject("router");
         const submit = async function () {
+            form.errors = "";
             if (await userStore.login(form.email, form.password)) {
                 router.push("/");
             }
