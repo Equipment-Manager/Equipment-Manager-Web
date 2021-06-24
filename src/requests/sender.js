@@ -12,6 +12,7 @@ export default {
                 data,
                 params: config.params,
             });
+
             return this.__responseWrapper(response);
         } catch (error) {
             return this.__responseWrapper(error.response, false);
@@ -23,6 +24,7 @@ export default {
             status: result.status,
             message: result.data.message,
         };
+
         if (status) {
             wrappedResponse.data = result.data.data;
         }

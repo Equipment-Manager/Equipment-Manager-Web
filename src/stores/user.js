@@ -17,6 +17,7 @@ const actions = {
         const response = await userRequest.login(email, password);
         if (!response.success) {
             state.error = response.message;
+
             return false;
         }
 
@@ -30,11 +31,13 @@ const actions = {
             return false;
         }
         const response = await userRequest.getUser();
+
         if (!response.success) {
             return false;
         }
         state.user = response.data.user;
         state.permissions = response.data.permissions;
+
         return true;
     },
     getToken() {
