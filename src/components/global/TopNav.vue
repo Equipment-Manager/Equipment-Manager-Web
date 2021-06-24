@@ -29,9 +29,8 @@
                 <div v-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
 
                 <div v-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Profile</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Products</a>
-                    <a @click="userStore.logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Log out</a>
+                    <router-link to="/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Profile</router-link>
+                    <a @click="logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white cursor-pointer">Log out</a>
                 </div>
             </div>
         </div>
@@ -46,12 +45,20 @@ export default {
     name: "TopNav",
     setup() {
         const userStore = inject("userStore");
+        const router = inject("router");
+
         const dropdownOpen = ref(false);
         const { isOpen } = useSidebar();
+        const logout = function () {
+            userStore.logout();
+            router.push({ name: "Login" });
+        };
+
         return {
             userStore,
             isOpen,
             dropdownOpen,
+            logout,
         };
     },
 };

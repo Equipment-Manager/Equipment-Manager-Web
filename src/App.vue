@@ -1,12 +1,12 @@
 <template>
-    <div class="flex h-screen bg-gray-200 font-roboto">
-        <sidebar-nav />
+    <div class="flex h-screen bg-gray-50 font-roboto">
+        <sidebar-nav v-if="userStore.getters.isAuthenticated" />
 
         <div class="flex-1 flex flex-col overflow-hidden">
-            <top-nav />
+            <top-nav v-if="userStore.getters.isAuthenticated" />
 
-            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-                <div class="container mx-auto px-6 py-8">
+            <main class="flex-1 overflow-x-hidden overflow-y-auto">
+                <div class="container mx-auto">
                     <router-view />
                 </div>
             </main>

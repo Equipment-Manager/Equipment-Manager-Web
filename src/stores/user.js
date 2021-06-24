@@ -23,6 +23,7 @@ const actions = {
 
         state.token = response.data.token;
         localStorage.setItem("token", response.data.token);
+        await this.getUser();
 
         return true;
     },
